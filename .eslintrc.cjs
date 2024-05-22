@@ -21,8 +21,7 @@ module.exports = {
         semi: false, // 无分号
         printWidth: 80, // 每行宽度至多80字符
         trailingComma: 'none', // 不加对象|数组最后逗号
-        endOfLine: 'auto', // 换行符号不限制（win mac 不一致）
-        parser: 'flow'
+        endOfLine: 'auto' // 换行符号不限制（win mac 不一致）
       }
     ],
     'vue/multi-word-component-names': [
