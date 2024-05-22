@@ -102,7 +102,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onUnmounted } from 'vue'
 import { Search, Tools, CloseBold, Check } from '@element-plus/icons-vue'
 
 const light_or_dark = ref(false)
@@ -115,6 +115,27 @@ const statement = ref<String>('划水！划水！不择手段地划水！——L
 const temperature = ref<String>('28℃')
 const date = ref<String>('2021-14-15')
 const settingstate = ref<Number>(0)
+
+const timer = ref() // 定时器
+let count = ref(40) // 倒计时
+//循环请求接口
+const Verification = () => {
+  timer.value = setInterval(() => {
+    if (count.value > 0 && count.value <= 60) {
+      // loading.value = false
+      count.value--
+    } else if (count.value === 0) {
+      // 请求数据
+      clearInterval(timer.value)
+      timer.value = null
+    }
+  }, 1000)
+}
+
+onUnmounted(() => {
+  clearInterval(timer.value)
+  timer.value = null
+})
 </script>
 
 <style lang="scss" scoped>
