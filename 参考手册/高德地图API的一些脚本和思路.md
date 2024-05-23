@@ -9,19 +9,21 @@ WebAPI：https://lbs.amap.com/api/webservice/summary
 
 jsAPI:https://lbs.amap.com/api/javascript-api-v2/summary
 
-LocalAPI（数据可视化）：https://lbs.amap.com/api/loca-v2/intro
+~~LocalAPI（数据可视化）：~~//已放弃，无法使用
+https://lbs.amap.com/api/loca-v2/intro
 
 ---
-矩形区域内交通态势查询：
+# 矩形区域内交通态势查询：
 https://lbs.amap.com/api/webservice/guide/api-advanced/traffic-situation-inquiry
 有配额限制，每小时查一次或每15分钟查一次
 输出是xml或json
 
 ---
-背景地图jsAPI脚本
+# 背景地图jsAPI脚本
 https://lbs.amap.com/demo/javascript-api-v2/example/map-lifecycle/map-show
-```javascript
+
 初始化地图
+```javascript
     var map = new AMap.Map("container", {
         zoom:17,
         pitch:50,//这个视角就行了
@@ -39,5 +41,34 @@ https://lbs.amap.com/demo/javascript-api-v2/example/map-lifecycle/map-show
 贴地呼吸点地图（ScatterLayer 贴地呼吸点）
 [概述-LOCA 数据可视化 API 2.0|高德地图API (amap.com)](https://lbs.amap.com/api/loca-v2/intro)
 [深圳高峰期路口-贴地点-示例详情-Loca API 2.0 | 高德地图API (amap.com)](https://lbs.amap.com/demo/loca-v2/demos/cat-scatter/sz-road)
-
+## 总结：做不到，老老实实调用路况地图吧。
 ---
+# 实时交通图层
+https://lbs.amap.com/api/javascript-api-v2/guide/layers/official-layers#t3
+视角
+```javascript
+ var map = new AMap.Map('container', {
+        center: [116.397428, 39.90923],
+        zoom: 10
+    });
+```
+实时路况图层
+```javascript
+    var trafficLayer = new AMap.TileLayer.Traffic({
+        zIndex: 10,
+        zooms: [7, 22],
+    });
+
+    trafficLayer.setMap(map);
+
+    var isVisible = true;
+    function toggle() {
+        if (isVisible) {
+            trafficLayer.hide();
+            isVisible = false;
+        } else {
+            trafficLayer.show();
+            isVisible = true;
+        }
+    }
+```
