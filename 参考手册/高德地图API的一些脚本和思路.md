@@ -4,6 +4,14 @@
 3. //通过城市查询获取行政区边界（用来给交通路况查询画矩形边框）
 
 ---
+# 需要的额API手册
+WebAPI：https://lbs.amap.com/api/webservice/summary
+
+jsAPI:https://lbs.amap.com/api/javascript-api-v2/summary
+
+LocalAPI（数据可视化）：https://lbs.amap.com/api/loca-v2/intro
+
+---
 矩形区域内交通态势查询：
 https://lbs.amap.com/api/webservice/guide/api-advanced/traffic-situation-inquiry
 有配额限制，每小时查一次或每15分钟查一次
