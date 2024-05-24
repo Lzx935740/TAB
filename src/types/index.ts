@@ -1,32 +1,19 @@
-export interface MyResponseType<T = any> {
-  code: number;
-  msg: string;
-  data: T;
+export interface LiveDataType {
+  body_temperature: Number | null
+  pneumatic: Number | null
+  relative_humidity: Number | null
+  directional_of_wink: String
+  Ultraviolet: String
+  wind_power: Number | null
 }
 
-export interface LoginInfo {
-  token: string;
+export interface newsTitleListType {
+  source: String
+  title: String
+  newsId: Number
 }
 
-export interface PicCode {
-  code: string;
-  url: string;
-}
-
-export interface AnnounCement {
-  announcementId: number | null;
-  announcementTitle: string;
-  announcementContent: string;
-}
-
-export interface Book {
-  bookId: number | null;
-  bookName: string;
-  bookAuthor: string;
-  bookPublish: string;
-  bookPrice: number | null;
-  bookType: string;
-  bookLocation: string;
-  bookState: number | null;
-  isbn: string;
+export interface newsParticularType {
+  title: String
+  details: { type: String; content: String; imageUrl: String; videoUrl: String }
 }

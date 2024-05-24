@@ -3,15 +3,13 @@
     <el-container>
       <el-header>
         <el-menu
-          :default-active="activeIndex"
-          class="el-menu-demo"
+          :default-active="firstActive"
           mode="horizontal"
-          router
-          @select="handleSelect"
+          @select="handleFirstSelect"
           style="height: 100%; border: none"
         >
-          <el-menu-item index="1">道路交通</el-menu-item>
-          <el-menu-item index="2">今日新闻</el-menu-item>
+          <el-menu-item index="roadtraffic">道路交通</el-menu-item>
+          <el-menu-item index="news">今日新闻</el-menu-item>
           <el-menu-item index="3">万年历</el-menu-item>
 
           <el-form :inline="true">
@@ -48,22 +46,126 @@
         </el-menu>
       </el-header>
       <el-main>
-        <el-row>
-          <el-col :span="9" :offset="3">
-            <div style="width: 22vw; border: var(--main-border)"></div>
-          </el-col>
-          <el-col :span="11" :offset="1">
-            <div style="width: 22vw; border: var(--main-border)"></div>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="9" :offset="3"
-            ><div style="width: 22vw; border: var(--main-border)"></div
-          ></el-col>
-          <el-col :span="11" :offset="1"
-            ><div style="width: 22vw; border: var(--main-border)"></div
-          ></el-col>
-        </el-row>
+        <div v-if="settingState">
+          <el-row>
+            <router-view />
+          </el-row>
+        </div>
+        <div class="setting" v-else>
+          <el-row>
+            <el-col :span="15">
+              <el-form :model="settingForm" class="setting_form">
+                <el-row>
+                  <el-col :span="6">
+                    <el-button v-if="optionState" @click="optionState = false"
+                      >修改</el-button
+                    >
+                    <el-button v-else @click="saveSetting()">保存</el-button>
+                  </el-col>
+                  <el-col :span="18" style="font-size: 3vh; font-weight: 800"
+                    >API秘钥</el-col
+                  >
+                </el-row>
+                <el-row>
+                  <el-col :span="6" class="option_name"
+                    >高德地图 WEB KEY</el-col
+                  >
+                  <el-col :span="18">
+                    <div v-if="optionState">
+                      {{ settingForm.AMAP_WEB_KEY }}
+                    </div>
+                    <el-input
+                      v-else
+                      clearable
+                      clearablev-else
+                      v-model="settingForm.AMAP_WEB_KEY"
+                    ></el-input>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="6" class="option_name">高德地图 JS KEY</el-col>
+                  <el-col :span="18">
+                    <div v-if="optionState">{{ settingForm.AMAP_JS_KEY }}</div>
+                    <el-input
+                      v-else
+                      clearable
+                      clearablev-else
+                      v-model="settingForm.AMAP_JS_KEY"
+                    ></el-input>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="6" class="option_name"
+                    >高德地图 安全密钥</el-col
+                  >
+                  <el-col :span="18">
+                    <div v-if="optionState">
+                      {{ settingForm.AMAP_SURETY_ID }}
+                    </div>
+                    <el-input
+                      v-else
+                      clearable
+                      clearablev-else
+                      v-model="settingForm.AMAP_SURETY_ID"
+                    ></el-input>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="6" class="option_name">彩云天气 TOKEN</el-col>
+                  <el-col :span="18">
+                    <div v-if="optionState">
+                      {{ settingForm.CAIYUNAPP_KEY }}
+                    </div>
+                    <el-input
+                      v-else
+                      clearable
+                      clearablev-else
+                      v-model="settingForm.CAIYUNAPP_KEY"
+                    ></el-input>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="6" class="option_name">ROLL APP_ID</el-col>
+                  <el-col :span="18">
+                    <div v-if="optionState">{{ settingForm.ROLL_APP_ID }}</div>
+                    <el-input
+                      v-else
+                      clearable
+                      clearablev-else
+                      v-model="settingForm.ROLL_APP_ID"
+                    ></el-input>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="6" class="option_name">ROLL APP_SECRET</el-col>
+                  <el-col :span="18">
+                    <div v-if="optionState">
+                      {{ settingForm.ROLL_APP_SECRET }}
+                    </div>
+                    <el-input
+                      v-else
+                      clearable
+                      clearablev-else
+                      v-model="settingForm.ROLL_APP_SECRET"
+                    ></el-input>
+                  </el-col>
+                </el-row>
+              </el-form>
+            </el-col>
+            <el-col
+              :span="9"
+              style="
+                border-right: var(--main-border);
+                border-bottom: var(--main-border);
+                text-align: left;
+                padding: 2.6vh 0 0 0.9vw;
+                font-size: 2vh;
+                font-weight: 800;
+              "
+              >API调用说明</el-col
+            >
+          </el-row>
+        </div>
       </el-main>
       <el-footer>每日一言<br />{{ statement }}</el-footer>
     </el-container>
@@ -76,25 +178,53 @@
         <el-main>
           <div class="temperature">{{ temperature }}</div>
           <div class="weather-menu">
-            <el-menu default-active="1">
-              <el-menu-item index="1">实况数据</el-menu-item>
-              <el-menu-item index="2">预计降水</el-menu-item>
+            <el-menu
+              :default-active="sencondActive"
+              @select="handleSecondSelect"
+            >
+              <el-menu-item index="livedata">实况数据</el-menu-item>
+              <el-menu-item index="expectedpreecopitation"
+                >预计降水</el-menu-item
+              >
               <el-menu-item index="3">生活指数</el-menu-item>
               <el-menu-item index="4">未来天气</el-menu-item>
             </el-menu>
           </div>
-          <div class="datetime">{{ date }}</div>
+          <div class="datetime" v-html="dateTime"></div>
         </el-main>
         <el-footer>
-          <div v-if="settingstate === 0">
+          <el-button
+            class="option_button"
+            v-if="settingState"
+            @click="settingState = false"
+          >
             <el-icon><Tools /></el-icon>
-          </div>
-          <div v-else-if="settingstate === 1">
-            <el-icon><Check /></el-icon>
-          </div>
-          <div v-else>
-            <el-icon><CloseBold /></el-icon>
-          </div>
+          </el-button>
+          <el-button
+            class="option_button"
+            v-else
+            @click="(settingState = true), (optionState = true)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="1em"
+              height="1em"
+              viewBox="0 0 48 48"
+            >
+              <g
+                fill="none"
+                stroke="#000"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="4"
+              >
+                <path d="M12.9998 8L6 14L12.9998 21" />
+                <path
+                  d="M6 14H28.9938C35.8768 14 41.7221 19.6204 41.9904 26.5C42.2739 33.7696 36.2671 40 28.9938 40H11.9984"
+                />
+              </g>
+            </svg>
+          </el-button>
         </el-footer>
       </el-container>
     </el-aside>
@@ -102,40 +232,121 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onUnmounted } from 'vue'
-import { Search, Tools, CloseBold, Check } from '@element-plus/icons-vue'
+import { ref, onUnmounted, onMounted, computed } from 'vue'
+import {
+  Search,
+  Tools,
+  CloseBold,
+  Check,
+  Setting
+} from '@element-plus/icons-vue'
 
+const firstActive = ref<string>('roadtraffic')
+const sencondActive = ref<string>('livedata')
 const light_or_dark = ref(false)
-const activeIndex = ref('1')
-const handleSelect = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
+const handleFirstSelect = (key: string) => {
+  firstActive.value = key
+  router.replace('/' + firstActive.value + '/' + sencondActive.value)
 }
-const searchValue = ref<String>()
-const statement = ref<String>('划水！划水！不择手段地划水！——LFSW元立')
-const temperature = ref<String>('28℃')
-const date = ref<String>('2021-14-15')
-const settingstate = ref<Number>(0)
+const handleSecondSelect = (key: string) => {
+  sencondActive.value = key
+  router.replace('/' + firstActive.value + '/' + sencondActive.value)
+}
+const searchValue = ref<string>()
+const statement = ref<string>('划水！划水！不择手段地划水！  ——LFSW元立')
+const temperature = ref<string>('28℃')
+const timeStamp = ref<number>(20240523171152)
+const dateStamp = ref<number>()
+const settingState = ref<boolean>(true)
 
 const timer = ref() // 定时器
-let count = ref(40) // 倒计时
 //循环请求接口
 const Verification = () => {
   timer.value = setInterval(() => {
-    if (count.value > 0 && count.value <= 60) {
-      // loading.value = false
-      count.value--
-    } else if (count.value === 0) {
-      // 请求数据
-      clearInterval(timer.value)
-      timer.value = null
-    }
+    dateTimeAndWord()
   }, 1000)
 }
+
+import { getWordOfTheDayService, getDateTimeService } from '@/api/roll'
+const quoteOfTheDay = async () => {
+  const { data } = await getWordOfTheDayService()
+  statement.value =
+    data[0].content + (data[0].author === '' ? '' : '    --' + data[0].author)
+}
+
+const dateTimeAndWord = async () => {
+  const data = await getDateTimeService()
+  const _dateStamp = new Date(data.sysTime2.split(' ')[0]).getTime()
+  timeStamp.value = new Date(data.sysTime2).getTime()
+  if (dateStamp.value === undefined) {
+    dateStamp.value = _dateStamp
+    quoteOfTheDay()
+  } else {
+    if (_dateStamp - dateStamp.value === 86400) {
+      quoteOfTheDay()
+      dateStamp.value = _dateStamp
+    }
+  }
+}
+
+const dateTime = computed(() => {
+  const date = new Date(timeStamp.value)
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  const week: number = date.getDay()
+  const hours = String(date.getHours()).padStart(2, '0')
+  const minutes = String(date.getMinutes()).padStart(2, '0')
+  return `${hours}:${minutes}<br />星期${week === 1 ? '一' : week === 2 ? '二' : week === 3 ? '三' : week === 4 ? '四' : week === 5 ? '五' : week === 6 ? '站' : '日'}<br />${year}年${month}月${day}日`
+})
+
+import { getIpLocationService } from '@/api/location'
+import { getLiveWeatherService } from '@/api/caiyunapp'
+
+const getTemperature = async () => {
+  const { rectangle } = await getIpLocationService()
+  const { result } = await getLiveWeatherService(rectangle.split(';')[0])
+  temperature.value = result.realtime.temperature + '℃'
+}
+
+import { useUserKeyStore } from '@/stores'
+onMounted(() => {
+  router.replace(`/${firstActive.value}/${sencondActive.value}`)
+  const userKey = useUserKeyStore()
+  settingForm.value.AMAP_JS_KEY = userKey.AMAP_JS_KEY
+  settingForm.value.AMAP_WEB_KEY = userKey.AMAP_WEB_KEY
+  settingForm.value.AMAP_SURETY_ID = userKey.AMAP_SURETY_ID
+  settingForm.value.CAIYUNAPP_KEY = userKey.CAIYUNAPP_KEY
+  settingForm.value.ROLL_APP_ID = userKey.ROLL_APP_ID
+  settingForm.value.ROLL_APP_SECRET = userKey.ROLL_APP_SECRET
+  Verification()
+  getTemperature()
+})
 
 onUnmounted(() => {
   clearInterval(timer.value)
   timer.value = null
 })
+
+const settingForm = ref({
+  AMAP_WEB_KEY: '',
+  AMAP_JS_KEY: '',
+  AMAP_SURETY_ID: '',
+  CAIYUNAPP_KEY: '',
+  ROLL_APP_ID: '',
+  ROLL_APP_SECRET: ''
+})
+
+const optionState = ref<boolean>(true)
+import { saveAs } from 'file-saver'
+import router from '@/router'
+const saveSetting = () => {
+  optionState.value = true
+  const blob = new Blob([JSON.stringify(settingForm.value)], {
+    type: 'text/json'
+  })
+  saveAs(blob, 'setting.json')
+}
 </script>
 
 <style lang="scss" scoped>
@@ -181,14 +392,40 @@ onUnmounted(() => {
     }
   }
 }
-
 .el-main {
-  .el-row {
-    height: 50%;
-    padding: 3vh 0 2.5vh 0;
+  .setting {
+    margin: 5vh 0 0 11vw;
+    width: 45vw;
+    text-align: center;
+    height: 42vh;
+    border-left: var(--main-border);
+    border-top: var(--main-border);
+    .el-input {
+      height: 50%;
+      width: 96%;
+    }
+    .setting_form {
+      .option_name {
+        font-weight: 800;
+      }
+      .el-row {
+        height: 14.28%;
+        line-height: 5.5vh;
+        border-bottom: var(--main-border);
+        .el-button {
+          font-size: 3vh;
+          font-weight: 800;
+          height: 100%;
+          width: 100%;
+          border: none;
+        }
+        .el-col {
+          border-right: var(--main-border);
+        }
+      }
+    }
   }
 }
-
 .el-footer {
   background: rgba(255, 255, 255, 0.6);
   border-top: var(--main-border);
@@ -251,8 +488,8 @@ onUnmounted(() => {
       position: absolute;
       bottom: 0;
       height: 11vh;
-      line-height: 10.8vh;
       width: 100%;
+      padding-top: 0.3vh;
       border: var(--main-border);
       border-bottom: none;
       font-size: 2vh;
@@ -265,6 +502,17 @@ onUnmounted(() => {
     padding-top: 1.6vh;
     text-align: center;
     font-size: 4.5vh;
+    .option_button {
+      width: 12vw;
+      height: 9vh;
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      text-align: center;
+      font-size: 4.5vh;
+      border-left: var(--main-border);
+      border-top: var(--main-border);
+    }
   }
 }
 </style>
