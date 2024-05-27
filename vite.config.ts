@@ -29,6 +29,18 @@ export default defineConfig({
         changeOrigin: true,
         ws: true,
         rewrite: (path) => path.replace(/^\/api\/caiyun/, '')
+      },
+      '/api/getSysTime': {
+        target: 'https://quan.suning.com/',
+        changeOrigin: true,
+        ws: true,
+        rewrite: (path) => path.replace(/^\/api\/getSysTime/, '')
+      },
+      '/api/mxnzp': {
+        target: 'https://www.mxnzp.com/api',
+        changeOrigin: true,
+        ws: true,
+        rewrite: (path) => path.replace(/^\/api\/mxnzp/, '')
       }
     }
   }

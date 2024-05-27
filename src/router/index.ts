@@ -19,6 +19,14 @@ const router = createRouter({
             {
               path: 'expectedpreecopitation',
               component: () => import('@/views/ExpectedPrecipitation.vue')
+            },
+            {
+              path: 'liveindex',
+              component: () => import('@/views/LiveIndex.vue')
+            },
+            {
+              path: 'recentweather',
+              component: () => import('@/views/RecentWeather.vue')
             }
           ]
         },
@@ -33,6 +41,36 @@ const router = createRouter({
             {
               path: 'expectedpreecopitation',
               component: () => import('@/views/ExpectedPrecipitation.vue')
+            },
+            {
+              path: 'liveindex',
+              component: () => import('@/views/LiveIndex.vue')
+            },
+            {
+              path: 'recentweather',
+              component: () => import('@/views/RecentWeather.vue')
+            }
+          ]
+        },
+        {
+          path: '/calendar',
+          component: () => import('@/views/ThousandsYearCalendar.vue'),
+          children: [
+            {
+              path: 'livedata',
+              component: () => import('@/views/LiveData.vue')
+            },
+            {
+              path: 'expectedpreecopitation',
+              component: () => import('@/views/ExpectedPrecipitation.vue')
+            },
+            {
+              path: 'liveindex',
+              component: () => import('@/views/LiveIndex.vue')
+            },
+            {
+              path: 'recentweather',
+              component: () => import('@/views/RecentWeather.vue')
             }
           ]
         }

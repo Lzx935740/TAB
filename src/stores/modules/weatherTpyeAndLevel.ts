@@ -11,6 +11,9 @@ export const useWeatherTypeAndLevelStore = defineStore(
     const getWeatherType = (code: string) => {
       return weather.weatherTpye[code]
     }
-    return { getWeatherLevel, getWeatherType }
+    const getWeatherCode = (code: string) => {
+      return weather.weatherCode[code]
+    }
+    return { getWeatherLevel, getWeatherType, getWeatherCode }
   }
 )

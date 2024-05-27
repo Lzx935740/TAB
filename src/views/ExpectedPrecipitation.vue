@@ -27,9 +27,24 @@ import {
 } from '@/api/caiyunapp'
 
 import { ref, onMounted } from 'vue'
+const timer = ref() // 定时器
+const num = ref<number>(1)
+//循环请求接口
+const Verification = () => {
+  timer.value = setInterval(() => {
+    if (num.value >= 3600) {
+      num.value = 1
+      getProbabilityOfRain()
+      getWeatherCode()
+    } else {
+      num.value++
+    }
+  }, 1000)
+}
 onMounted(() => {
   getProbabilityOfRain()
   getWeatherCode()
+  Verification()
 })
 const getProbabilityOfRain = async () => {
   const { rectangle } = await getIpLocationService()
@@ -39,7 +54,7 @@ const getProbabilityOfRain = async () => {
   )
 }
 
-import { useWeatherTypeAndLevelStore } from '@/stores/modules/weatherTpyeAndLevel'
+import { useWeatherTypeAndLevelStore } from '@/stores/index'
 const weatherCodeList = useWeatherTypeAndLevelStore()
 const weatherCode = ref<string>('0000')
 const weatherLevel = ref<string>()
@@ -69,6 +84,12 @@ const weatherStr = computed(() => {
       '预警'
   }
   return str
+})
+
+import { onUnmounted } from 'vue'
+onUnmounted(() => {
+  clearInterval(timer.value)
+  timer.value = null
 })
 </script>
 

@@ -10,7 +10,7 @@
         >
           <el-menu-item index="roadtraffic">道路交通</el-menu-item>
           <el-menu-item index="news">今日新闻</el-menu-item>
-          <el-menu-item index="3">万年历</el-menu-item>
+          <el-menu-item index="calendar">万年历</el-menu-item>
 
           <el-form :inline="true">
             <el-form-item>
@@ -186,8 +186,8 @@
               <el-menu-item index="expectedpreecopitation"
                 >预计降水</el-menu-item
               >
-              <el-menu-item index="3">生活指数</el-menu-item>
-              <el-menu-item index="4">未来天气</el-menu-item>
+              <el-menu-item index="liveindex">生活指数</el-menu-item>
+              <el-menu-item index="recentweather">近期天气</el-menu-item>
             </el-menu>
           </div>
           <div class="datetime" v-html="dateTime"></div>

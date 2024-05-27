@@ -8,14 +8,15 @@
             :data="newsTitleList"
             style="width: 100%"
             :show-header="false"
+            @row-click="getNewsParticular"
           >
             <el-table-column prop="source" width="80" align="center" />
             <el-table-column prop="title" />
           </el-table>
         </el-scrollbar>
         <el-button
-          style="position: absolute; right: 1px; bottom: 1px; z-index: 10000000"
-          >f</el-button
+          style="position: absolute; right: 5px; bottom: 5px; z-index: 10000000; font-size: 3.5vh; height: 2.4vw; width: 2.4vw; background: rgba(255, 255, 255, 0.6);"
+          :icon="RefreshLeft" @click="reGetNewsTitleList"></el-button
         >
       </div>
     </el-row>
@@ -23,7 +24,7 @@
       <div style="width: 22vw; border: var(--main-border)">
         <div
           style="
-            border-bottom: 2px solid #bbbbbb;
+            border-bottom: var(--main-border);
             height: 20%;
             font-weight: 800;
             font-size: 140%;
@@ -48,8 +49,8 @@
               </p>
               <p>
                 <div v-if="item.type === 'text'">
-                {{ item.content }}
-              </div>
+                  {{ item.content }}
+                </div>
               </p>
             </div>
           </el-scrollbar>
@@ -60,7 +61,9 @@
 
   <el-col :span="11" :offset="1">
     <el-row>
-      <div style="width: 22vw"></div>
+      <div style="width: 22vw">
+        <DynamicLogo />
+      </div>
     </el-row>
     <el-row>
       <div style="width: 22vw; border: var(--main-border)">
@@ -71,6 +74,8 @@
 </template>
 
 <script lang="ts" setup>
+import DynamicLogo from './components/DynamicLogo.vue'
+import { RefreshLeft } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import { newsTitleListType, newsParticularType } from '@/tpyes'
 const newsTitleList = ref<newsTitleListType>()
@@ -86,10 +91,11 @@ const getNewsTitleList = async () => {
   newsTitleList.value = data
 }
 
-const getNewsParticular = async (news: newsTitleListType) => {
-  const { data } = await getNewsParticularService(news.newsId)
-  newsParticular.value = { title: news.title, details: data.items }
+const getNewsParticular = async (row: any) => {
+  const { data } = await getNewsParticularService(row.newsId)
+  newsParticular.value = { title: row.title, details: data.items }
 }
+
 
 import { onMounted } from 'vue'
 onMounted(() => {
@@ -97,9 +103,28 @@ onMounted(() => {
   getNewsTitleList().then(() => {
     setTimeout(() => {
       getNewsParticular(newsTitleList.value[0])
-    }, 1500)
+    }, 1000)
   })
 })
+
+const reGetNewsTitleList = () => {
+  if (newsTitlePage.value >= 5) {
+    newsTitlePage.value = 1
+    newsTitleTypeid.value = Math.floor(Math.random() * (547 - 532 + 1)) + 532
+    getNewsTitleList().then(() => {
+      setTimeout(() => {
+        getNewsParticular(newsTitleList.value[0])
+      }, 1000)
+    })
+  } else {
+    newsTitlePage.value += 1
+    getNewsTitleList().then(() => {
+      setTimeout(() => {
+        getNewsParticular(newsTitleList.value[0])
+      }, 1000)
+    })
+  }
+}
 </script>
 
 <style lang="scss" scoped>

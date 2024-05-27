@@ -6,7 +6,7 @@ export const getWordOfTheDayService = () => {
   return request({
     method: 'get',
     url:
-      'https://www.mxnzp.com/api/daily_word/recommend?app_id=' +
+      '/mxnzp/daily_word/recommend?app_id=' +
       userKey.ROLL_APP_ID +
       '&app_secret=' +
       userKey.ROLL_APP_SECRET
@@ -17,7 +17,7 @@ export const getWordOfTheDayService = () => {
 export const getNewTitleListService = (typeid: number, page: number) => {
   return request({
     method: 'get',
-    url: `https://www.mxnzp.com/api/news/list/v2?typeId=${typeid}&page=${page}&app_id=${userKey.ROLL_APP_ID}&app_secret=${userKey.ROLL_APP_SECRET}`
+    url: `/mxnzp/news/list/v2?typeId=${typeid}&page=${page}&app_id=${userKey.ROLL_APP_ID}&app_secret=${userKey.ROLL_APP_SECRET}`
   })
 }
 
@@ -25,7 +25,15 @@ export const getNewTitleListService = (typeid: number, page: number) => {
 export const getNewsParticularService = (newsid: number) => {
   return request({
     method: 'get',
-    url: `https://www.mxnzp.com/api/news/details/v2?newsId=${newsid}&app_id=${userKey.ROLL_APP_ID}&app_secret=${userKey.ROLL_APP_SECRET}`
+    url: `/mxnzp/news/details/v2?newsId=${newsid}&app_id=${userKey.ROLL_APP_ID}&app_secret=${userKey.ROLL_APP_SECRET}`
+  })
+}
+
+// 获取某天万年历的信息
+export const getTodeyDateTimeService = (day: string) => {
+  return request({
+    method: 'get',
+    url: `/mxnzp/holiday/single/${day}?app_id=${userKey.ROLL_APP_ID}&app_secret=${userKey.ROLL_APP_SECRET}`
   })
 }
 
@@ -33,6 +41,6 @@ export const getNewsParticularService = (newsid: number) => {
 export const getDateTimeService = () => {
   return request({
     method: 'get',
-    url: 'https://quan.suning.com/getSysTime.do'
+    url: '/getSysTime/getSysTime.do'
   })
 }

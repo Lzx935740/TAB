@@ -10,7 +10,9 @@
 
   <el-col :span="11" :offset="1">
     <el-row>
-      <div style="width: 22vw"></div>
+      <div style="width: 22vw">
+        <DynamicLogo />
+      </div>
     </el-row>
     <el-row>
       <div style="width: 22vw; border: var(--main-border)">
@@ -20,7 +22,9 @@
   </el-col>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import DynamicLogo from './components/DynamicLogo.vue'
+</script>
 
 <style lang="scss" scoped>
 .el-row {
