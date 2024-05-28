@@ -1,13 +1,23 @@
 <template>
   <el-col :span="9" :offset="3">
     <el-row>
-      <div style="width: 22vw; height: 100%; border: var(--main-border)">
-        <el-calendar style="height: auto" />
+      <div
+        style="
+          background: rgba(255, 255, 255, 0.6);
+          width: 22vw;
+          height: 100%;
+          border: var(--main-border);
+        "
+      >
+        <el-calendar
+          style="background: rgba(255, 255, 255, 0.6); height: auto"
+        />
       </div>
     </el-row>
     <el-row>
       <div
         style="
+          background: rgba(255, 255, 255, 0.6);
           width: 22vw;
           border: var(--main-border);
           font-size: 2.6vh;
@@ -111,7 +121,13 @@
       </div>
     </el-row>
     <el-row>
-      <div style="width: 22vw; border: var(--main-border)">
+      <div
+        style="
+          background: rgba(255, 255, 255, 0.6);
+          width: 22vw;
+          border: var(--main-border);
+        "
+      >
         <router-view />
       </div>
     </el-row>
@@ -122,7 +138,7 @@
 import DynamicLogo from './components/DynamicLogo.vue'
 import { ref, onMounted } from 'vue'
 const date = ref({})
-import { getDateTimeService, getTodeyDateTimeService } from '@/api/roll'
+import { getDateTimeService, getTodeyDateTimeService } from '@/api'
 const getCalendarByMonth = async () => {
   const { sysTime2 } = await getDateTimeService()
   const { data } = await getTodeyDateTimeService(

@@ -74,8 +74,8 @@ const FutureWeather = ref<{
   skycon_20h_32h: [{ value: 'LIGHT_RAIN' }]
 })
 
-import { getFutureWeatherService } from '@/api/caiyunapp'
-import { getIpLocationService } from '@/api/location'
+import { getFutureWeatherService } from '@/api'
+import { getIpLocationService } from '@/api'
 const getFuterWeather = async () => {
   const { rectangle } = await getIpLocationService()
   const { result } = await getFutureWeatherService(rectangle.split(';')[0], 3)

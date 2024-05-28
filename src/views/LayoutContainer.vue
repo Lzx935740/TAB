@@ -1,5 +1,6 @@
 <template>
   <el-container>
+    <MapContainer />
     <el-container>
       <el-header>
         <el-menu
@@ -8,7 +9,6 @@
           @select="handleFirstSelect"
           style="height: 100%; border: none"
         >
-          <el-menu-item index="roadtraffic">道路交通</el-menu-item>
           <el-menu-item index="news">今日新闻</el-menu-item>
           <el-menu-item index="calendar">万年历</el-menu-item>
 
@@ -17,32 +17,13 @@
               <el-button plain :icon="Search"></el-button>
             </el-form-item>
             <el-form-item>
-              <el-input v-model="searchValue" placeholder="键入以搜索" />
+              <el-input
+                v-model="searchValue"
+                @keydown.enter="bingSearch"
+                placeholder="键入以搜索"
+              />
             </el-form-item>
           </el-form>
-
-          <el-switch
-            v-model="light_or_dark"
-            size="large"
-            style="margin: 2vh 1vw"
-          >
-            <template #active-action>
-              <svg viewBox="0 0 24 24" class="dark-icon">
-                <path
-                  d="M11.01 3.05C6.51 3.54 3 7.36 3 12a9 9 0 0 0 9 9c4.63 0 8.45-3.5 8.95-8c.09-.79-.78-1.42-1.54-.95A5.403 5.403 0 0 1 11.1 7.5c0-1.06.31-2.06.84-2.89c.45-.67-.04-1.63-.93-1.56z"
-                  fill="currentColor"
-                ></path>
-              </svg>
-            </template>
-            <template #inactive-action>
-              <svg viewBox="0 0 24 24" class="light-icon">
-                <path
-                  d="M6.05 4.14l-.39-.39a.993.993 0 0 0-1.4 0l-.01.01a.984.984 0 0 0 0 1.4l.39.39c.39.39 1.01.39 1.4 0l.01-.01a.984.984 0 0 0 0-1.4zM3.01 10.5H1.99c-.55 0-.99.44-.99.99v.01c0 .55.44.99.99.99H3c.56.01 1-.43 1-.98v-.01c0-.56-.44-1-.99-1zm9-9.95H12c-.56 0-1 .44-1 .99v.96c0 .55.44.99.99.99H12c.56.01 1-.43 1-.98v-.97c0-.55-.44-.99-.99-.99zm7.74 3.21c-.39-.39-1.02-.39-1.41-.01l-.39.39a.984.984 0 0 0 0 1.4l.01.01c.39.39 1.02.39 1.4 0l.39-.39a.984.984 0 0 0 0-1.4zm-1.81 15.1l.39.39a.996.996 0 1 0 1.41-1.41l-.39-.39a.993.993 0 0 0-1.4 0c-.4.4-.4 1.02-.01 1.41zM20 11.49v.01c0 .55.44.99.99.99H22c.55 0 .99-.44.99-.99v-.01c0-.55-.44-.99-.99-.99h-1.01c-.55 0-.99.44-.99.99zM12 5.5c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6zm-.01 16.95H12c.55 0 .99-.44.99-.99v-.96c0-.55-.44-.99-.99-.99h-.01c-.55 0-.99.44-.99.99v.96c0 .55.44.99.99.99zm-7.74-3.21c.39.39 1.02.39 1.41 0l.39-.39a.993.993 0 0 0 0-1.4l-.01-.01a.996.996 0 0 0-1.41 0l-.39.39c-.38.4-.38 1.02.01 1.41z"
-                  fill="currentColor"
-                ></path>
-              </svg>
-            </template>
-          </el-switch>
         </el-menu>
       </el-header>
       <el-main>
@@ -158,11 +139,41 @@
                 border-right: var(--main-border);
                 border-bottom: var(--main-border);
                 text-align: left;
-                padding: 2.6vh 0 0 0.9vw;
-                font-size: 2vh;
-                font-weight: 800;
               "
-              >API调用说明</el-col
+              ><div
+                style="
+                  height: 6vh;
+
+                  line-height: 6vh;
+                  padding-left: 0.9vw;
+                  font-size: 3vh;
+                  font-weight: 800;
+                  border-bottom: var(--main-border);
+                "
+              >
+                API调用说明
+              </div>
+              <div style="font-size: 1.83vh">
+                <p>本项目一共使用了3个API,分别为：</p>
+                <ul>
+                  <li>
+                    1. 高德地图(WebAPI、JSAPI)：lbs.amap.com，提供路况信息和地图
+                  </li>
+                  <li>2. 彩云天气：platform.caiyunapp.com，提供气象信息</li>
+                  <li>3. RollAPI：www.mxnzp.com，提供新闻、万年历等信息</li>
+                </ul>
+                <p>
+                  由于相关平台对个人开发者有调用限额，所以需要各位用户自己提供API接口，保证项目顺利运行
+                  其中：
+                </p>
+                <ul>
+                  <li>· 高德地图需要提供WebAPI和JSAPI的key</li>
+                  <li>
+                    · 彩云天气需要提供API的Token
+                    RoolAPI需要提供APP_ID和APP_SECRET
+                  </li>
+                </ul>
+              </div></el-col
             >
           </el-row>
         </div>
@@ -240,10 +251,10 @@ import {
   Check,
   Setting
 } from '@element-plus/icons-vue'
+import MapContainer from './components/MapContainer.vue'
 
-const firstActive = ref<string>('roadtraffic')
+const firstActive = ref<string>('news')
 const sencondActive = ref<string>('livedata')
-const light_or_dark = ref(false)
 const handleFirstSelect = (key: string) => {
   firstActive.value = key
   router.replace('/' + firstActive.value + '/' + sencondActive.value)
@@ -252,7 +263,7 @@ const handleSecondSelect = (key: string) => {
   sencondActive.value = key
   router.replace('/' + firstActive.value + '/' + sencondActive.value)
 }
-const searchValue = ref<string>()
+const searchValue = ref<string>('')
 const statement = ref<string>('划水！划水！不择手段地划水！  ——LFSW元立')
 const temperature = ref<string>('28℃')
 const timeStamp = ref<number>(20240523171152)
@@ -267,7 +278,7 @@ const Verification = () => {
   }, 1000)
 }
 
-import { getWordOfTheDayService, getDateTimeService } from '@/api/roll'
+import { getWordOfTheDayService, getDateTimeService } from '@/api'
 const quoteOfTheDay = async () => {
   const { data } = await getWordOfTheDayService()
   statement.value =
@@ -300,8 +311,8 @@ const dateTime = computed(() => {
   return `${hours}:${minutes}<br />星期${week === 1 ? '一' : week === 2 ? '二' : week === 3 ? '三' : week === 4 ? '四' : week === 5 ? '五' : week === 6 ? '站' : '日'}<br />${year}年${month}月${day}日`
 })
 
-import { getIpLocationService } from '@/api/location'
-import { getLiveWeatherService } from '@/api/caiyunapp'
+import { getIpLocationService } from '@/api'
+import { getLiveWeatherService } from '@/api'
 
 const getTemperature = async () => {
   const { rectangle } = await getIpLocationService()
@@ -346,6 +357,12 @@ const saveSetting = () => {
     type: 'text/json'
   })
   saveAs(blob, 'setting.json')
+}
+
+const bingSearch = () => {
+  console.log(111)
+  if (searchValue.value === '') return
+  window.open(`https://cn.bing.com/search?q=${searchValue.value}`, '_blank')
 }
 </script>
 
@@ -394,6 +411,12 @@ const saveSetting = () => {
 }
 .el-main {
   .setting {
+    p,
+    ul,
+    li {
+      height: auto;
+      padding-left: 0.3vw;
+    }
     margin: 5vh 0 0 11vw;
     width: 45vw;
     text-align: center;

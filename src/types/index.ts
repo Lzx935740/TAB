@@ -1,19 +1,30 @@
+export interface responseType<T = any> {
+  code: number
+  msg: string
+  data: T
+  rectangle: string
+  status: string
+  sysTime2: string
+  result: T
+  trafficinfo: T
+}
+
 export interface LiveDataType {
-  body_temperature: Number | null
-  pneumatic: Number | null
-  relative_humidity: Number | null
-  directional_of_wink: String
-  Ultraviolet: String
-  wind_power: Number | null
+  body_temperature: number | null
+  pneumatic: number | null
+  relative_humidity: number
+  directional_of_wink: string
+  Ultraviolet: string
+  wind_power: number | null
 }
 
 export interface newsTitleListType {
-  source: String
-  title: String
-  newsId: Number
+  source: string
+  title: string
+  newsId: number
 }
 
 export interface newsParticularType {
-  title: String
-  details: { type: String; content: String; imageUrl: String; videoUrl: String }
+  title: string
+  details: { type: string; content: string; imageUrl: string; videoUrl: string }
 }

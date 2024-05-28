@@ -31,14 +31,14 @@ import { type LiveDataType } from '@/types'
 const liveData = ref<LiveDataType>({
   body_temperature: null,
   pneumatic: null,
-  relative_humidity: null,
+  relative_humidity: 0,
   directional_of_wink: '',
   Ultraviolet: '',
   wind_power: null
 })
 
-import { getIpLocationService } from '@/api/location'
-import { getLiveWeatherService } from '@/api/caiyunapp'
+import { getIpLocationService } from '@/api'
+import { getLiveWeatherService } from '@/api'
 
 const weatherDetail = async () => {
   const { rectangle } = await getIpLocationService()

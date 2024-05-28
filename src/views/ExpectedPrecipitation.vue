@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: white">
+  <div>
     <el-row style="padding: 2.5vh 5vw"> 未来 6 小时下雨概率 </el-row>
     <el-row>
       <el-col :span="4">1h</el-col>
@@ -20,11 +20,8 @@
 
 <script lang="ts" setup>
 const probabilityOfRains = ref<[number | string]>()
-import { getIpLocationService } from '@/api/location'
-import {
-  getExpectedPrecipitation,
-  getLiveWeatherService
-} from '@/api/caiyunapp'
+import { getIpLocationService } from '@/api'
+import { getExpectedPrecipitation, getLiveWeatherService } from '@/api'
 
 import { ref, onMounted } from 'vue'
 const timer = ref() // 定时器

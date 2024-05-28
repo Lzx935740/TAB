@@ -1,5 +1,5 @@
 import axios, { type AxiosRequestConfig } from 'axios'
-import { type MyResponseType } from '@/types'
+import { type responseType } from '@/types'
 
 const baseURL = '/api'
 
@@ -11,11 +11,11 @@ const instance = axios.create({
 
 const request = async <T = any>(
   config: AxiosRequestConfig
-): Promise<MyResponseType<T>> => {
-  const { data } = await instance.request<MyResponseType<T>>(config)
-  data.code === 0
-    ? console.log(data.msg) // 成功消息提示
-    : console.error(data.msg) // 失败消息提示
+): Promise<responseType<T>> => {
+  const { data } = await instance.request<responseType<T>>(config)
+  // data.code === 1 || data.status === 'ok' || data.status === '1'
+  //   ? console.log(data.msg) // 成功消息提示
+  //   : console.error(data.msg) // 失败消息提示
   return data
 }
 

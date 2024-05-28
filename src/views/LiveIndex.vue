@@ -16,8 +16,8 @@
 </template>
 
 <script lang="ts" setup>
-import { getFutureWeatherService } from '@/api/caiyunapp'
-import { getIpLocationService } from '@/api/location'
+import { getFutureWeatherService } from '@/api'
+import { getIpLocationService } from '@/api'
 import { onMounted, ref } from 'vue'
 const liveIndex = ref<{
   comfort: string
@@ -32,7 +32,6 @@ const getLiveIndex = async () => {
     coldRisk: result.daily.life_index.coldRisk[0].desc,
     carWashing: result.daily.life_index.carWashing[0].desc
   }
-  console.log(liveIndex.value)
 }
 
 onMounted(() => {

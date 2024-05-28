@@ -1,6 +1,7 @@
 import request from '@/utils/request'
 import { useUserKeyStore } from '@/stores/index'
 const userKey = useUserKeyStore()
+
 const baseUrl = '/caiyun/' + userKey.CAIYUNAPP_KEY + '/'
 export const getLiveWeatherService = (location: string, alert?: boolean) => {
   let url = ''

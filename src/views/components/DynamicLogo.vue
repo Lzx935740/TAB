@@ -250,8 +250,8 @@ for (let item in whitePic) {
   whiteLogoImgs[item] = new LogoImg(whitePic[item], item)
 }
 
-import { getIpLocationService } from '@/api/location'
-import { getLiveWeatherService } from '@/api/caiyunapp'
+import { getIpLocationService } from '@/api'
+import { getLiveWeatherService } from '@/api'
 
 const getSkyconCode = async () => {
   const { rectangle } = await getIpLocationService()
@@ -265,7 +265,7 @@ const Verification = () => {
   timer.value = setInterval(async () => {
     let code = await getSkyconCode()
     if (activeName.value !== code) {
-      particleCanvas.value.changeImg(blackLogoImgs[code])
+      particleCanvas.value!.changeImg(blackLogoImgs[code])
       activeName.value = code
     }
   }, 3600000)
@@ -278,7 +278,7 @@ onMounted(async () => {
     particleCanvas.value.drawCanvas()
   }
   activeName.value = await getSkyconCode()
-  particleCanvas.value.changeImg(blackLogoImgs[activeName.value])
+  particleCanvas.value!.changeImg(blackLogoImgs[activeName.value])
   Verification()
 })
 

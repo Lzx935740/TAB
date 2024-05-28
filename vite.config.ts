@@ -37,10 +37,16 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api\/getSysTime/, '')
       },
       '/api/mxnzp': {
-        target: 'https://www.mxnzp.com/api',
+        target: 'https://www.mxnzp.com/api/',
         changeOrigin: true,
         ws: true,
         rewrite: (path) => path.replace(/^\/api\/mxnzp/, '')
+      },
+      '/api/amap': {
+        target: 'https://restapi.amap.com/v3/',
+        changeOrigin: true,
+        ws: true,
+        rewrite: (path) => path.replace(/^\/api\/amap/, '')
       }
     }
   }

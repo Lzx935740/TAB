@@ -1,7 +1,7 @@
 <template>
   <el-col :span="9" :offset="3">
     <el-row>
-      <div style="width: 22vw; border: var(--main-border); position: relative">
+      <div style="width: 22vw; border: var(--main-border); position: relative; background: rgba(255, 255, 255, 0.6);">
         <el-scrollbar max_height="100%">
           <el-table
             border
@@ -10,8 +10,8 @@
             :show-header="false"
             @row-click="getNewsParticular"
           >
-            <el-table-column prop="source" width="80" align="center" />
-            <el-table-column prop="title" />
+            <el-table-column style="background: rgba(255, 255, 255, 0.6);" prop="source" width="80" align="center" />
+            <el-table-column style="background: rgba(255, 255, 255, 0.6);" prop="title" />
           </el-table>
         </el-scrollbar>
         <el-button
@@ -21,7 +21,7 @@
       </div>
     </el-row>
     <el-row>
-      <div style="width: 22vw; border: var(--main-border)">
+      <div style="background: rgba(255, 255, 255, 0.6); width: 22vw; border: var(--main-border)">
         <div
           style="
             border-bottom: var(--main-border);
@@ -66,7 +66,7 @@
       </div>
     </el-row>
     <el-row>
-      <div style="width: 22vw; border: var(--main-border)">
+      <div style="background: rgba(255, 255, 255, 0.6);width: 22vw; border: var(--main-border)">
         <router-view />
       </div>
     </el-row>
@@ -79,7 +79,7 @@ import { RefreshLeft } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import { newsTitleListType, newsParticularType } from '@/tpyes'
 const newsTitleList = ref<newsTitleListType>()
-import { getNewTitleListService, getNewsParticularService } from '@/api/roll'
+import { getNewTitleListService, getNewsParticularService } from '@/api'
 const newsTitleTypeid = ref<number>(532)
 const newsTitlePage = ref<number>(1)
 const newsParticular = ref<newsParticularType>({ title: '', details: [] })
@@ -131,5 +131,14 @@ const reGetNewsTitleList = () => {
 .el-row {
   height: 50%;
   padding: 3vh 0 2.5vh 0;
+  :deep(.el-table__expanded-cell) {
+    background-color: transparent !important;
+  }
+
+  :deep(.el-table th),
+  :deep(.el-table tr),
+  :deep(.el-table td) {
+    background-color: transparent;
+  }
 }
 </style>
