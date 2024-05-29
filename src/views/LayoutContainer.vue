@@ -33,7 +33,7 @@
           </el-row>
         </div>
         <div class="setting" v-else>
-          <el-row>
+          <el-row style="background: rgba(255, 255, 255, 0.6)">
             <el-col :span="15">
               <el-form :model="settingForm" class="setting_form">
                 <el-row>
@@ -118,8 +118,8 @@
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="6" class="option_name">ROLL APP_SECRET</el-col>
-                  <el-col :span="18">
+                  <el-col :span="7" class="option_name">ROLL APP_SECRET</el-col>
+                  <el-col :span="17">
                     <div v-if="optionState">
                       {{ settingForm.ROLL_APP_SECRET }}
                     </div>

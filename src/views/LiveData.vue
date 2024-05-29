@@ -13,7 +13,7 @@
     style="border-top: var(--main-border); border-bottom: var(--main-border)"
   >
     <el-col :span="12" style="border-right: var(--main-border)"
-      >相对湿度：{{ 100 * liveData.relative_humidity }}%</el-col
+      >相对湿度：{{ (100 * liveData.relative_humidity).toFixed(2) }}%</el-col
     >
     <el-col :span="12">风向：{{ liveData.directional_of_wink }}</el-col>
   </el-row>
@@ -46,7 +46,26 @@ const weatherDetail = async () => {
   liveData.value.body_temperature = result.realtime.apparent_temperature
   liveData.value.pneumatic = result.realtime.pressure
   liveData.value.relative_humidity = result.realtime.humidity
-  liveData.value.directional_of_wink = result.realtime.wind.direction
+  liveData.value.directional_of_wink =
+    result.realtime.wind.direction === 360
+      ? '北方'
+      : result.realtime.wind.direction > 270
+        ? '西北方'
+        : result.realtime.wind.direction === 270
+          ? '西方'
+          : result.realtime.wind.direction > 180
+            ? '西南方'
+            : result.realtime.wind.direction === 180
+              ? '南方'
+              : result.realtime.wind.direction > 90
+                ? '东南方'
+                : result.realtime.wind.direction === 90
+                  ? '东方'
+                  : result.realtime.wind.direction > 0
+                    ? '东北方'
+                    : result.realtime.wind.direction === 0
+                      ? '北方'
+                      : ''
   liveData.value.Ultraviolet = result.realtime.life_index.ultraviolet.desc
   liveData.value.wind_power = result.realtime.wind.speed
 }
