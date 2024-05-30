@@ -6,6 +6,19 @@
 ---
 本项目是一个基于Vue的前端web界面，旨在为用户出门提供当日的相关信息（如天气、交通、万年历等）
 
+# 快速部署：
+---
+参考文献：
+[快速上手 | Vue.js (vuejs.org)](https://cn.vuejs.org/guide/quick-start.html)
+1. 首先安装[Node.js](https://nodejs.org/en)(18.3 或更高版本)
+2. 在项目文件夹运行cmd等命令行
+3. 运行指令：
+    ```bash
+    npm install
+    npm run dev
+    ```
+4. 访问 http://localhost:5173/
+
 # 版面介绍：
 ---
 Web页面内容也可以分为四个板块：
@@ -25,15 +38,6 @@ Web页面内容也可以分为四个板块：
 展示未来6小时内的降水概率和气象预警信息
 ### 生活指数：
 展示彩云天气提供的先关指数（如舒适度指数，感冒指数，洗车指数等）
-
-## 道路交通：
-> 数据来源：[高德开放平台](https://lbs.amap.com/)
-
-无论有车和无车，路况信息也是要关注的，毕竟公交车也会因为堵车误点不是吗？
-### 道路堵塞排名：
-展示了当前市内最堵的交通路段，建议绕着走
-### 道路路况地图：
-通过交通路况地图直观展示交通路况信息
 
 ## 今日新闻：
 > 数据来源：[ROLL_API-每日最新新闻](https://www.mxnzp.com/doc/detail?id=12)
@@ -76,43 +80,4 @@ Web页面内容也可以分为四个板块：
 ## 2. 作为桌面副屏使用
 
 ---
----
-# smart_travel
-
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-pnpm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-pnpm dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-pnpm build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
-```
+古人出门看老黄历，当代人出门看赛博老黄历（乐）
