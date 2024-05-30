@@ -14,7 +14,7 @@
         {{ probabilityOfRains[i] }}%
       </el-col>
     </el-row>
-    <el-row v-if="weatherLevel" style="color: black; font-weight: 800; padding: 2vh 6vw;" :style="weatherLevel">{{ weatherStr }}</el-row>
+    <el-row v-if="weatherLevel" style="color: white; font-weight: 800; padding: 2vh 6vw;" :style="weatherLevel">{{ weatherStr }}</el-row>
   </div>
 </template>
 
@@ -64,6 +64,10 @@ const getWeatherCode = async () => {
       'background-color: ' +
       weatherCodeList.getWeatherLevel(weatherCode.value.slice(0,2))
   }
+  weatherLevel.value = '0401'
+  weatherLevel.value =
+      'background-color: ' +
+      weatherCodeList.getWeatherLevel(weatherCode.value.slice(0,2))
 }
 import { computed } from 'vue'
 const weatherStr = computed(() => {
