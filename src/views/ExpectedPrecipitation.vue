@@ -14,7 +14,7 @@
         {{ probabilityOfRains[i] }}%
       </el-col>
     </el-row>
-    <el-row v-if="weatherLevel" :style="weatherLevel">{{ weatherStr }}</el-row>
+    <el-row v-if="weatherLevel" style="color: black; font-weight: 800; padding: 2vh 6vw;" :style="weatherLevel">{{ weatherStr }}</el-row>
   </div>
 </template>
 
@@ -53,7 +53,7 @@ const getProbabilityOfRain = async () => {
 
 import { useWeatherTypeAndLevelStore } from '@/stores/index'
 const weatherCodeList = useWeatherTypeAndLevelStore()
-const weatherCode = ref<string>('0000')
+const weatherCode = ref<string>('0401')
 const weatherLevel = ref<string>()
 const getWeatherCode = async () => {
   const { rectangle } = await getIpLocationService()
@@ -62,7 +62,7 @@ const getWeatherCode = async () => {
     weatherCode.value = result.alert.content[0].code
     weatherLevel.value =
       'background-color: ' +
-      weatherCodeList.getWeatherLevel(weatherCode.value.slice(2))
+      weatherCodeList.getWeatherLevel(weatherCode.value.slice(0,2))
   }
 }
 import { computed } from 'vue'
@@ -76,8 +76,8 @@ const weatherStr = computed(() => {
   let str = ''
   if (weatherCode.value !== '0000') {
     str =
-      weatherCodeList.getWeatherType(weatherCode.value.slice(0, 2)) +
-      level[weatherCode.value.slice(2)] +
+      weatherCodeList.getWeatherType(weatherCode.value.slice(2)) +
+      level[weatherCode.value.slice(0,2)] +
       '预警'
   }
   return str
