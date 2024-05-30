@@ -53,7 +53,7 @@ const getProbabilityOfRain = async () => {
 
 import { useWeatherTypeAndLevelStore } from '@/stores/index'
 const weatherCodeList = useWeatherTypeAndLevelStore()
-const weatherCode = ref<string>('0401')
+const weatherCode = ref<string>('0000')
 const weatherLevel = ref<string>()
 const getWeatherCode = async () => {
   const { rectangle } = await getIpLocationService()
@@ -64,10 +64,6 @@ const getWeatherCode = async () => {
       'background-color: ' +
       weatherCodeList.getWeatherLevel(weatherCode.value.slice(0,2))
   }
-  weatherLevel.value = '0401'
-  weatherLevel.value =
-      'background-color: ' +
-      weatherCodeList.getWeatherLevel(weatherCode.value.slice(0,2))
 }
 import { computed } from 'vue'
 const weatherStr = computed(() => {
