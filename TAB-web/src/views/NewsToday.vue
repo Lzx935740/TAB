@@ -77,12 +77,12 @@
 import DynamicLogo from './components/DynamicLogo.vue'
 import { RefreshLeft } from '@element-plus/icons-vue'
 import { ref } from 'vue'
-import { newsTitleListType, newsParticularType } from '@/tpyes'
-const newsTitleList = ref<newsTitleListType>()
+import type { newsTitleListType, newsParticularType } from '@/types';
+const newsTitleList = ref<newsTitleListType[]>([])
 import { getNewTitleListService, getNewsParticularService } from '@/api'
 const newsTitleTypeid = ref<number>(532)
 const newsTitlePage = ref<number>(1)
-const newsParticular = ref<newsParticularType>({ title: '', details: [] })
+const newsParticular = ref<newsParticularType>({ title: '', details: [{ type: '', content: '', imageUrl: '', videoUrl: '' }] })
 const getNewsTitleList = async () => {
   const { data } = await getNewTitleListService(
     newsTitleTypeid.value,

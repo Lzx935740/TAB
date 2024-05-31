@@ -26,5 +26,7 @@ export interface newsTitleListType {
 
 export interface newsParticularType {
   title: string
-  details: { type: string; content: string; imageUrl: string; videoUrl: string }
+  details: [
+    { type: string; content: string; imageUrl: string; videoUrl: string }
+  ]
 }
