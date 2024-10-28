@@ -191,8 +191,7 @@ class ParticleCanvas {
       }
     } else {
       this.ParticleArr = img.particleData.map(
-        (item) =>
-          new Particle(item.totalX, item.totalY, animateTime, item.color)
+        (item) => new Particle(item.totalX, item.totalY, animateTime, item.color)
       )
     }
   }

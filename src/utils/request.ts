@@ -9,9 +9,7 @@ const instance = axios.create({
   timeout: 10000
 })
 
-const request = async <T = any>(
-  config: AxiosRequestConfig
-): Promise<responseType<T>> => {
+const request = async <T = any>(config: AxiosRequestConfig): Promise<responseType<T>> => {
   const { data } = await instance.request<responseType<T>>(config)
   // data.code === 1 || data.status === 'ok' || data.status === '1'
   //   ? console.log(data.msg) // 成功消息提示

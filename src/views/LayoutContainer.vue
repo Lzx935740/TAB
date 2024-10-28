@@ -38,19 +38,13 @@
               <el-form :model="settingForm" class="setting_form">
                 <el-row>
                   <el-col :span="6">
-                    <el-button v-if="optionState" @click="optionState = false"
-                      >修改</el-button
-                    >
+                    <el-button v-if="optionState" @click="optionState = false">修改</el-button>
                     <el-button v-else @click="saveSetting()">保存</el-button>
                   </el-col>
-                  <el-col :span="18" style="font-size: 3vh; font-weight: 800"
-                    >API秘钥</el-col
-                  >
+                  <el-col :span="18" style="font-size: 3vh; font-weight: 800">API秘钥</el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="6" class="option_name"
-                    >高德地图 WEB KEY</el-col
-                  >
+                  <el-col :span="6" class="option_name">高德地图 WEB KEY</el-col>
                   <el-col :span="18">
                     <div v-if="optionState">
                       {{ settingForm.AMAP_WEB_KEY }}
@@ -76,9 +70,7 @@
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="6" class="option_name"
-                    >高德地图 安全密钥</el-col
-                  >
+                  <el-col :span="6" class="option_name">高德地图 安全密钥</el-col>
                   <el-col :span="18">
                     <div v-if="optionState">
                       {{ settingForm.AMAP_SURETY_ID }}
@@ -156,9 +148,7 @@
               <div style="font-size: 1.83vh">
                 <p>本项目一共使用了3个API,分别为：</p>
                 <ul>
-                  <li>
-                    1. 高德地图(WebAPI、JSAPI)：lbs.amap.com，提供路况信息和地图
-                  </li>
+                  <li>1. 高德地图(WebAPI、JSAPI)：lbs.amap.com，提供路况信息和地图</li>
                   <li>2. 彩云天气：platform.caiyunapp.com，提供气象信息</li>
                   <li>3. RollAPI：www.mxnzp.com，提供新闻、万年历等信息</li>
                 </ul>
@@ -168,10 +158,7 @@
                 </p>
                 <ul>
                   <li>· 高德地图需要提供WebAPI和JSAPI的key</li>
-                  <li>
-                    · 彩云天气需要提供API的Token
-                    RoolAPI需要提供APP_ID和APP_SECRET
-                  </li>
+                  <li>· 彩云天气需要提供API的Token RoolAPI需要提供APP_ID和APP_SECRET</li>
                 </ul>
               </div></el-col
             >
@@ -189,14 +176,9 @@
         <el-main>
           <div class="temperature">{{ temperature }}</div>
           <div class="weather-menu">
-            <el-menu
-              :default-active="sencondActive"
-              @select="handleSecondSelect"
-            >
+            <el-menu :default-active="sencondActive" @select="handleSecondSelect">
               <el-menu-item index="livedata">实况数据</el-menu-item>
-              <el-menu-item index="expectedpreecopitation"
-                >预计降水</el-menu-item
-              >
+              <el-menu-item index="expectedpreecopitation">预计降水</el-menu-item>
               <el-menu-item index="liveindex">生活指数</el-menu-item>
               <el-menu-item index="recentweather">近期天气</el-menu-item>
             </el-menu>
@@ -204,11 +186,7 @@
           <div class="datetime" v-html="dateTime"></div>
         </el-main>
         <el-footer>
-          <el-button
-            class="option_button"
-            v-if="settingState"
-            @click="settingState = false"
-          >
+          <el-button class="option_button" v-if="settingState" @click="settingState = false">
             <el-icon><Tools /></el-icon>
           </el-button>
           <el-button
@@ -216,12 +194,7 @@
             v-else
             @click="(settingState = true), (optionState = true)"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="1em"
-              height="1em"
-              viewBox="0 0 48 48"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
               <g
                 fill="none"
                 stroke="#000"
@@ -244,13 +217,7 @@
 
 <script setup lang="ts">
 import { ref, onUnmounted, onMounted, computed } from 'vue'
-import {
-  Search,
-  Tools,
-  CloseBold,
-  Check,
-  Setting
-} from '@element-plus/icons-vue'
+import { Search, Tools, CloseBold, Check, Setting } from '@element-plus/icons-vue'
 import MapContainer from './components/MapContainer.vue'
 
 const firstActive = ref<string>('news')
@@ -281,8 +248,7 @@ const Verification = () => {
 import { getWordOfTheDayService, getDateTimeService } from '@/api'
 const quoteOfTheDay = async () => {
   const { data } = await getWordOfTheDayService()
-  statement.value =
-    data[0].content + (data[0].author === '' ? '' : '    --' + data[0].author)
+  statement.value = data[0].content + (data[0].author === '' ? '' : '    --' + data[0].author)
 }
 
 const dateTimeAndWord = async () => {

@@ -1,7 +1,14 @@
 <template>
   <el-col :span="9" :offset="3">
     <el-row>
-      <div style="width: 22vw; border: var(--main-border); position: relative; background: rgba(255, 255, 255, 0.6);">
+      <div
+        style="
+          width: 22vw;
+          border: var(--main-border);
+          position: relative;
+          background: rgba(255, 255, 255, 0.6);
+        "
+      >
         <el-scrollbar max_height="100%">
           <el-table
             border
@@ -10,14 +17,29 @@
             :show-header="false"
             @row-click="getNewsParticular"
           >
-            <el-table-column style="background: rgba(255, 255, 255, 0.6);" prop="source" width="80" align="center" />
-            <el-table-column style="background: rgba(255, 255, 255, 0.6);" prop="title" />
+            <el-table-column
+              style="background: rgba(255, 255, 255, 0.6)"
+              prop="source"
+              width="80"
+              align="center"
+            />
+            <el-table-column style="background: rgba(255, 255, 255, 0.6)" prop="title" />
           </el-table>
         </el-scrollbar>
         <el-button
-          style="position: absolute; right: 5px; bottom: 5px; z-index: 10000000; font-size: 3.5vh; height: 2.4vw; width: 2.4vw; background: rgba(255, 255, 255, 0.6);"
-          :icon="RefreshLeft" @click="reGetNewsTitleList"></el-button
-        >
+          style="
+            position: absolute;
+            right: 5px;
+            bottom: 5px;
+            z-index: 10000000;
+            font-size: 3.5vh;
+            height: 2.4vw;
+            width: 2.4vw;
+            background: rgba(255, 255, 255, 0.6);
+          "
+          :icon="RefreshLeft"
+          @click="reGetNewsTitleList"
+        ></el-button>
       </div>
     </el-row>
     <el-row>
@@ -37,21 +59,17 @@
           <el-scrollbar max_height="80%">
             <div
               v-for="item of newsParticular.details"
-              :key="item"
+              :key="item.imageUrl"
               style="height: auto; font-size: 1.4vh"
             >
               <p>
-                <img
-                  v-if="item.type === 'img'"
-                  :src="item.imageUrl"
-                  style="width: 22vw"
-                />
+                <img v-if="item.type === 'img'" :src="item.imageUrl" style="width: 22vw" />
               </p>
-              <p>
+              <div>
                 <div v-if="item.type === 'text'">
                   {{ item.content }}
                 </div>
-              </p>
+              </div>
             </div>
           </el-scrollbar>
         </div>
@@ -66,7 +84,7 @@
       </div>
     </el-row>
     <el-row>
-      <div style="background: rgba(255, 255, 255, 0.6);width: 22vw; border: var(--main-border)">
+      <div style="background: rgba(255, 255, 255, 0.6); width: 22vw; border: var(--main-border)">
         <router-view />
       </div>
     </el-row>
@@ -77,17 +95,15 @@
 import DynamicLogo from './components/DynamicLogo.vue'
 import { RefreshLeft } from '@element-plus/icons-vue'
 import { ref } from 'vue'
-import { newsTitleListType, newsParticularType } from '@/tpyes'
+import type { newsTitleListType, newsParticularType } from '@/types'
 const newsTitleList = ref<newsTitleListType>()
 import { getNewTitleListService, getNewsParticularService } from '@/api'
 const newsTitleTypeid = ref<number>(532)
 const newsTitlePage = ref<number>(1)
-const newsParticular = ref<newsParticularType>({ title: '', details: [] })
+const newsParticular = ref<newsParticularType>({ title: '', details: null })
 const getNewsTitleList = async () => {
-  const { data } = await getNewTitleListService(
-    newsTitleTypeid.value,
-    newsTitlePage.value
-  )
+  const { data } = await getNewTitleListService(newsTitleTypeid.value, newsTitlePage.value)
+  console.log(data)
   newsTitleList.value = data
 }
 
@@ -96,13 +112,12 @@ const getNewsParticular = async (row: any) => {
   newsParticular.value = { title: row.title, details: data.items }
 }
 
-
 import { onMounted } from 'vue'
 onMounted(() => {
   newsTitleTypeid.value = Math.floor(Math.random() * (547 - 532 + 1)) + 532
   getNewsTitleList().then(() => {
     setTimeout(() => {
-      getNewsParticular(newsTitleList.value[0])
+      getNewsParticular(newsTitleTypeid.value)
     }, 1000)
   })
 })
@@ -113,14 +128,14 @@ const reGetNewsTitleList = () => {
     newsTitleTypeid.value = Math.floor(Math.random() * (547 - 532 + 1)) + 532
     getNewsTitleList().then(() => {
       setTimeout(() => {
-        getNewsParticular(newsTitleList.value[0])
+        getNewsParticular(newsTitleTypeid.value)
       }, 1000)
     })
   } else {
     newsTitlePage.value += 1
     getNewsTitleList().then(() => {
       setTimeout(() => {
-        getNewsParticular(newsTitleList.value[0])
+        getNewsParticular(newsTitleTypeid.value)
       }, 1000)
     })
   }
@@ -131,6 +146,7 @@ const reGetNewsTitleList = () => {
 .el-row {
   height: 50%;
   padding: 3vh 0 2.5vh 0;
+
   :deep(.el-table__expanded-cell) {
     background-color: transparent !important;
   }

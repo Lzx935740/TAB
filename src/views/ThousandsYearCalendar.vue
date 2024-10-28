@@ -26,7 +26,7 @@
         "
       >
         <div style="height: 16.6%; border-bottom: var(--main-border)">
-          {{ `${date.yearTips}年${date.lunarCalendar}` }}
+          {{ `${date!.yearTips}年${date!.lunarCalendar}` }}
         </div>
         <div style="height: 16.6%; border-bottom: var(--main-border)">
           <div
@@ -36,10 +36,10 @@
               border-right: var(--main-border);
             "
           >
-            {{ date.typeDes }}
+            {{ date!.typeDes }}
           </div>
           <div style="display: inline-block; width: 50%">
-            {{ date.solarTerms }}
+            {{ date!.solarTerms }}
           </div>
         </div>
         <div style="height: 16.6%; border-bottom: var(--main-border)">
@@ -53,7 +53,7 @@
             宜
           </div>
           <div style="display: inline-block; width: 85%; font-size: 12px">
-            {{ date.suit }}
+            {{ date!.suit }}
           </div>
         </div>
         <div style="height: 16.6%; border-bottom: var(--main-border)">
@@ -67,7 +67,7 @@
             忌
           </div>
           <div style="display: inline-block; width: 85%; font-size: 12px">
-            {{ date.avoid }}
+            {{ date!.avoid }}
           </div>
         </div>
         <div style="height: 16.6%; border-bottom: var(--main-border)">
@@ -78,7 +78,7 @@
               border-right: var(--main-border);
             "
           >
-            {{ `今年的第${date.dayOfYear}天` }}
+            {{ `今年的第${date!.dayOfYear}天` }}
           </div>
           <div
             style="
@@ -87,7 +87,7 @@
               border-right: var(--main-border);
             "
           >
-            {{ `今年的第${date.weekOfYear}周` }}
+            {{ `今年的第${date!.weekOfYear}周` }}
           </div>
         </div>
         <div style="height: 16.6%">
@@ -98,7 +98,7 @@
               border-right: var(--main-border);
             "
           >
-            {{ date.chineseZodiac + '年' }}
+            {{ date!.chineseZodiac + '年' }}
           </div>
           <div
             style="
@@ -107,7 +107,7 @@
               border-right: var(--main-border);
             "
           >
-            {{ date.constellation }}
+            {{ date!.constellation }}
           </div>
         </div>
       </div>
@@ -137,7 +137,22 @@
 <script lang="ts" setup>
 import DynamicLogo from './components/DynamicLogo.vue'
 import { ref, onMounted } from 'vue'
-const date = ref({})
+const date = ref<{
+  date: string
+  weekDay: 2
+  yearTips: string
+  type: 0
+  typeDes: string
+  chineseZodiac: string
+  solarTerms: string
+  avoid: string
+  lunarCalendar: string
+  suit: string
+  dayOfYear: 303
+  weekOfYear: 44
+  constellation: string
+  indexWorkDayOfMonth: 17
+}>()
 import { getDateTimeService, getTodeyDateTimeService } from '@/api'
 const getCalendarByMonth = async () => {
   const { sysTime2 } = await getDateTimeService()

@@ -4,14 +4,10 @@
       >体感温度：{{ liveData.body_temperature }}℃</el-col
     >
     <el-col :span="12"
-      >气压：<span style="font-size: 2vh"
-        >{{ liveData.pneumatic }} hPa</span
-      ></el-col
+      >气压：<span style="font-size: 2vh">{{ liveData.pneumatic }} hPa</span></el-col
     >
   </el-row>
-  <el-row
-    style="border-top: var(--main-border); border-bottom: var(--main-border)"
-  >
+  <el-row style="border-top: var(--main-border); border-bottom: var(--main-border)">
     <el-col :span="12" style="border-right: var(--main-border)"
       >相对湿度：{{ (100 * liveData.relative_humidity).toFixed(2) }}%</el-col
     >
