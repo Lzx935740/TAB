@@ -9,9 +9,7 @@
           border: var(--main-border);
         "
       >
-        <el-calendar
-          style="background: rgba(255, 255, 255, 0.6); height: auto"
-        />
+        <el-calendar style="background: rgba(255, 255, 255, 0.6); height: auto" />
       </div>
     </el-row>
     <el-row>
@@ -29,13 +27,7 @@
           {{ `${date!.yearTips}年${date!.lunarCalendar}` }}
         </div>
         <div style="height: 16.6%; border-bottom: var(--main-border)">
-          <div
-            style="
-              display: inline-block;
-              width: 50%;
-              border-right: var(--main-border);
-            "
-          >
+          <div style="display: inline-block; width: 50%; border-right: var(--main-border)">
             {{ date!.typeDes }}
           </div>
           <div style="display: inline-block; width: 50%">
@@ -43,70 +35,30 @@
           </div>
         </div>
         <div style="height: 16.6%; border-bottom: var(--main-border)">
-          <div
-            style="
-              display: inline-block;
-              width: 15%;
-              border-right: var(--main-border);
-            "
-          >
-            宜
-          </div>
+          <div style="display: inline-block; width: 15%; border-right: var(--main-border)">宜</div>
           <div style="display: inline-block; width: 85%; font-size: 12px">
             {{ date!.suit }}
           </div>
         </div>
         <div style="height: 16.6%; border-bottom: var(--main-border)">
-          <div
-            style="
-              display: inline-block;
-              width: 15%;
-              border-right: var(--main-border);
-            "
-          >
-            忌
-          </div>
+          <div style="display: inline-block; width: 15%; border-right: var(--main-border)">忌</div>
           <div style="display: inline-block; width: 85%; font-size: 12px">
             {{ date!.avoid }}
           </div>
         </div>
         <div style="height: 16.6%; border-bottom: var(--main-border)">
-          <div
-            style="
-              display: inline-block;
-              width: 50%;
-              border-right: var(--main-border);
-            "
-          >
+          <div style="display: inline-block; width: 50%; border-right: var(--main-border)">
             {{ `今年的第${date!.dayOfYear}天` }}
           </div>
-          <div
-            style="
-              display: inline-block;
-              width: 50%;
-              border-right: var(--main-border);
-            "
-          >
+          <div style="display: inline-block; width: 50%; border-right: var(--main-border)">
             {{ `今年的第${date!.weekOfYear}周` }}
           </div>
         </div>
         <div style="height: 16.6%">
-          <div
-            style="
-              display: inline-block;
-              width: 50%;
-              border-right: var(--main-border);
-            "
-          >
+          <div style="display: inline-block; width: 50%; border-right: var(--main-border)">
             {{ date!.chineseZodiac + '年' }}
           </div>
-          <div
-            style="
-              display: inline-block;
-              width: 50%;
-              border-right: var(--main-border);
-            "
-          >
+          <div style="display: inline-block; width: 50%; border-right: var(--main-border)">
             {{ date!.constellation }}
           </div>
         </div>
@@ -121,13 +73,7 @@
       </div>
     </el-row>
     <el-row>
-      <div
-        style="
-          background: rgba(255, 255, 255, 0.6);
-          width: 22vw;
-          border: var(--main-border);
-        "
-      >
+      <div style="background: rgba(255, 255, 255, 0.6); width: 22vw; border: var(--main-border)">
         <router-view />
       </div>
     </el-row>
@@ -156,9 +102,7 @@ const date = ref<{
 import { getDateTimeService, getTodeyDateTimeService } from '@/api'
 const getCalendarByMonth = async () => {
   const { sysTime2 } = await getDateTimeService()
-  const { data } = await getTodeyDateTimeService(
-    sysTime2.split(' ')[0].replace(/-/g, '')
-  )
+  const { data } = await getTodeyDateTimeService(sysTime2.split(' ')[0].replace(/-/g, ''))
   date.value = data
 }
 

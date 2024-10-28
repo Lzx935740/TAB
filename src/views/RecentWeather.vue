@@ -3,11 +3,7 @@
     <div class="thead">未来三天天气</div>
     <div class="tbody">
       <div class="tr">
-        <div
-          class="td"
-          v-for="(skycon, index) in FutureWeather.skycon_08h_20h"
-          :key="index"
-        >
+        <div class="td" v-for="(skycon, index) in FutureWeather.skycon_08h_20h" :key="index">
           {{
             parseInt(skycon.date.split('-')[1]) +
             '月' +
@@ -17,42 +13,25 @@
         </div>
       </div>
       <div class="tr">
-        <div
-          class="td"
-          v-for="(skycon, index) in FutureWeather.skycon_08h_20h"
-          :key="index"
-        >
+        <div class="td" v-for="(skycon, index) in FutureWeather.skycon_08h_20h" :key="index">
           <span style="font-size: 1.6vh; border-right: none"
             >{{
-              weatherCode
-                .getWeatherCode(skycon.value)
-                .replace(/（.*）/g, '') ===
+              weatherCode.getWeatherCode(skycon.value).replace(/（.*）/g, '') ===
               weatherCode.getWeatherCode(
                 FutureWeather.skycon_20h_32h[index].value.replace(/（.*）/g, '')
               )
-                ? weatherCode
-                    .getWeatherCode(skycon.value)
-                    .replace(/（.*）/g, '')
-                : weatherCode
-                    .getWeatherCode(skycon.value)
-                    .replace(/（.*）/g, '') +
+                ? weatherCode.getWeatherCode(skycon.value).replace(/（.*）/g, '')
+                : weatherCode.getWeatherCode(skycon.value).replace(/（.*）/g, '') +
                   '转' +
                   weatherCode.getWeatherCode(
-                    FutureWeather.skycon_20h_32h[index].value.replace(
-                      /（.*）/g,
-                      ''
-                    )
+                    FutureWeather.skycon_20h_32h[index].value.replace(/（.*）/g, '')
                   )
             }}
           </span>
         </div>
       </div>
       <div class="tr">
-        <div
-          class="td"
-          v-for="(temperature, index) in FutureWeather.temperature"
-          :key="index"
-        >
+        <div class="td" v-for="(temperature, index) in FutureWeather.temperature" :key="index">
           <span style="font-size: 1.6vh; border-right: none">{{
             temperature.min + '℃-' + temperature.max + '℃'
           }}</span>
